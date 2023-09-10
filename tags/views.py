@@ -4,9 +4,10 @@ from rest_framework.response import Response
 from tags.serializer import WriteTagSerializer, ReadTagSerializer
 from tags.models import Tags
 from django.utils.text import slugify
-from rest_framework.generics import RetrieveAPIView
+from rest_framework.generics import RetrieveAPIView, DestroyAPIView
+from rest_framework.views import APIView
 
-class CreateTagView(views.APIView):
+class CreateTagView(APIView):
     
     # def get(self, request):
     #     pass 
@@ -28,7 +29,7 @@ class CreateTagView(views.APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class TagDetailViewV1(views.APIView):
+class TagDetailViewV1(APIView):
     
     def get(self, request, slug):
         try:
@@ -44,6 +45,20 @@ class TagDetailViewV2(RetrieveAPIView):
     serializer_class = ReadTagSerializer
     lookup_field = "slug"
     
+
+class DeleteTagView1(APIView):
+    
+    def delete(self, request, slug):
+        try:
+            tag_object = Tags.objects.get(slug=slug)
+            tag_object.delete()
+            return Response({"message" : "Tag deleted"}, status=status.HTTP_200_OK)
+        except (Tags.DoesNotExist, Tags.MultipleObjectsReturned):
+            return Response({"message" : "Tag not found !"}, status=status.HTTP_400_BAD_REQUEST)
+
+class DeleteTagView2(DestroyAPIView):
+    queryset = Tags.objects.all()
+    lookup_field = "slug"
     
     
         
