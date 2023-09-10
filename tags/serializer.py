@@ -8,7 +8,7 @@ from tags.models import Tags
 class WriteTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tags
-        fields = ('name', 'slug')
+        fields = ('name',)
 
 class ReadTagSerializer(serializers.ModelSerializer):
     class Meta:
