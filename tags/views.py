@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from tags.serializer import WriteTagSerializer, ReadTagSerializer
 from tags.models import Tags
 from django.utils.text import slugify
-from rest_framework.generics import RetrieveAPIView, DestroyAPIView
+from rest_framework.generics import RetrieveAPIView, DestroyAPIView, ListAPIView
 from rest_framework.views import APIView
 
 class CreateTagView(APIView):
@@ -60,5 +60,18 @@ class DeleteTagView2(DestroyAPIView):
     queryset = Tags.objects.all()
     lookup_field = "slug"
     
+
+class TagListView1(APIView):
+    
+    def get(self, request):
+        queryset = Tags.objects.all()
+        response_data = ReadTagSerializer(instance=queryset, many=True).data 
+        return Response(response_data, status=status.HTTP_200_OK)
+
+
+class TagListView2(ListAPIView):
+    queryset = Tags.objects.all()
+    serializer_class = ReadTagSerializer
+
     
         
