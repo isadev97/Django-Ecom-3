@@ -8,4 +8,5 @@ class Tags(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
+        # default_name = app_name_model_name
         db_table = "tags"

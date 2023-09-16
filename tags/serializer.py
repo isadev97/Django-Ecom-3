@@ -10,8 +10,14 @@ class WriteTagSerializer(serializers.ModelSerializer):
         model = Tags
         fields = ('name',)
 
+
 class ReadTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tags
         fields = ('id', 'name', 'slug', 'created_at', 'updated_at')
 
+
+class ReadTagMinSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tags
+        fields = ('id', 'name', 'slug')
