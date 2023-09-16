@@ -6,6 +6,7 @@ from tags.models import Tags
 from django.utils.text import slugify
 from rest_framework.generics import RetrieveAPIView, DestroyAPIView, ListAPIView
 from rest_framework.views import APIView
+from products.filters import SimplePaginationClass
 
 class CreateTagView(APIView):
     
@@ -34,7 +35,9 @@ class TagDetailViewV1(APIView):
     def get(self, request, slug):
         try:
             tag_object = Tags.objects.get(slug=slug)
+            print(tag_object)
             response_data = ReadTagSerializer(instance=tag_object).data 
+            print(response_data)
             return Response(response_data, status=status.HTTP_200_OK)
         except (Tags.DoesNotExist, Tags.MultipleObjectsReturned):
             return Response({"message" : "Tag not found !"}, status=status.HTTP_400_BAD_REQUEST)
@@ -72,6 +75,7 @@ class TagListView1(APIView):
 class TagListView2(ListAPIView):
     queryset = Tags.objects.all()
     serializer_class = ReadTagSerializer
+    pagination_class = SimplePaginationClass
 
     
         

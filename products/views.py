@@ -6,6 +6,7 @@ from products.serializer import WriteProductSerializer, ReadProductSerializer
 from django.utils.text import slugify
 from rest_framework.generics import ListAPIView
 from products.models import Product
+from products.filters import SimplePaginationClass
 
 # Create your views here.
 class CreateProductView(APIView):
@@ -25,3 +26,4 @@ class CreateProductView(APIView):
 class ListProductView(ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ReadProductSerializer
+    pagination_class = SimplePaginationClass
