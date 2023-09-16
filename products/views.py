@@ -34,4 +34,4 @@ class ListProductView(ListAPIView):
     ordering = ["-id"]
     ordering_fields = ["id", "created_at"]
     search_fields = ['^name']
-    filterset_fields = ['price', 'tags']
+    filterset_fields = ['price', 'tags', 'quantity']
