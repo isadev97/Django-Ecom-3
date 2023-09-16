@@ -10,3 +10,6 @@ class Tags(models.Model):
     class Meta:
         # default_name = app_name_model_name
         db_table = "tags"
+        
+    def __str__(self) -> str:
+        return self.name

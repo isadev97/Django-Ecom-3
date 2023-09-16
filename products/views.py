@@ -7,6 +7,8 @@ from django.utils.text import slugify
 from rest_framework.generics import ListAPIView
 from products.models import Product
 from products.filters import SimplePaginationClass
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 # Create your views here.
 class CreateProductView(APIView):
@@ -27,3 +29,9 @@ class ListProductView(ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ReadProductSerializer
     pagination_class = SimplePaginationClass
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter, DjangoFilterBackend]
+    # default ordering
+    ordering = ["-id"]
+    ordering_fields = ["id", "created_at"]
+    search_fields = ['^name']
+    filterset_fields = ['price', 'tags']
