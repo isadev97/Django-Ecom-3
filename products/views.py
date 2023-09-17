@@ -35,3 +35,7 @@ class ListProductView(ListAPIView):
     ordering_fields = ["id", "created_at"]
     search_fields = ['^name']
     filterset_fields = ['price', 'tags', 'quantity']
+    
+    def list(self, request, *args, **kwargs):
+        print(request.user)
+        return super().list(request, *args, **kwargs)
