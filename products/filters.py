@@ -7,4 +7,4 @@ class SimplePaginationClass(PageNumberPagination):
     max_page_size = 1000
     
 class MyUserRateThrottleClass(UserRateThrottle):
-    rate = '5/hour' # min/hour/day
+    rate = '500/hour' # min/hour/day

@@ -48,7 +48,10 @@ class ListProductView(ListAPIView):
     # pagination_class = None 
     throttle_classes = (MyUserRateThrottleClass, )
     
+    def fetch_external_data(self):
+        return "hello world"
     
     def list(self, request, *args, **kwargs):
-        print("request user", request.user)
-        return super().list(request, *args, **kwargs)
+        response =  super().list(request, *args, **kwargs)
+        response.data["external_data"] = self.fetch_external_data()
+        return Response(response.data)
