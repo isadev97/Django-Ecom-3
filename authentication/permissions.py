@@ -8,3 +8,11 @@ class IsAuthenticatedAndActiveUser(BasePermission):
     def has_permission(self, request, view):
         request_user = request.user
         return isinstance(request_user, User) and (request_user.is_active == True)
+    
+class IsAdmin(BasePermission):
+    
+    message = "Invalid token or user"
+    
+    def has_permission(self, request, view):
+        request_user = request.user
+        return isinstance(request_user, User) and (request_user.is_superuser == True)

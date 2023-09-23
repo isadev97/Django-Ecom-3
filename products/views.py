@@ -6,14 +6,16 @@ from products.serializer import WriteProductSerializer, ReadProductSerializer
 from django.utils.text import slugify
 from rest_framework.generics import ListAPIView
 from products.models import Product
-from products.filters import SimplePaginationClass
+from products.filters import SimplePaginationClass, MyUserRateThrottleClass
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from products.permissions import MyPermissionClass
-from authentication.permissions import IsAuthenticatedAndActiveUser
+from authentication.permissions import IsAuthenticatedAndActiveUser, IsAdmin
 
 # Create your views here.
 class CreateProductView(APIView):
+    
+    permission_classes = (IsAdmin, )
     
     def post(self, request):
         request_data = request.data 
@@ -44,6 +46,7 @@ class ListProductView(ListAPIView):
     # permission_classes = []
     # To remove class use None
     # pagination_class = None 
+    throttle_classes = (MyUserRateThrottleClass, )
     
     
     def list(self, request, *args, **kwargs):

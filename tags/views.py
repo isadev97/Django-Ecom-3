@@ -7,8 +7,10 @@ from django.utils.text import slugify
 from rest_framework.generics import RetrieveAPIView, DestroyAPIView, ListAPIView
 from rest_framework.views import APIView
 from products.filters import SimplePaginationClass
+from authentication.permissions import IsAdmin
 
 class CreateTagView(APIView):
+    permission_classes = (IsAdmin, )
     
     # def get(self, request):
     #     pass 
